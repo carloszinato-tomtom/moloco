@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import { getDevice, setLocation } from "./api";
+import Controls from './Controls';
+import Map from './Map';
+
+const BARCELONA = [2.0701, 41.3926];
 
 function App() {
+
+  const findDevice = async() => {
+    const response = await getDevice();
+  };
+  
+  const mockLocation = async() => {
+    const response = await setLocation({
+      deviceId: '123',
+      lat: BARCELONA[0],
+      lon: BARCELONA[1],
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: 'flex', flexDirection: 'column' }} className="App">
+      <Controls
+        findDevice={findDevice}
+        mockLocation={mockLocation}
+        deviceName={''}
+      />
+      <Map />
     </div>
   );
 }
