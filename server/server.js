@@ -3,6 +3,8 @@ const Usbmux = require('appium-ios-device');
 const utilities = Usbmux.utilities;
 const services = Usbmux.services;
 
+const BARCELONA = [41.3926, 2.0701];
+
 const app = express();
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -34,6 +36,7 @@ async function getDeviceInfo() {
     if (devices && devices.length) {
         const uuid = devices[0];
         const info = await utilities.getDeviceInfo(uuid);
+        await setDeviceLocation(uuid, BARCELONA[0], BARCELONA[1]);
         return info;
     }
 }
@@ -41,11 +44,9 @@ async function getDeviceInfo() {
 async function setDeviceLocation(uuid, lat, lon) {
     const locationService = await services.startSimulateLocationService(uuid);
     console.log(` -------------------------------------> gonna try to set location `);
-    locationService.setLocation(lat, lon);
+    // locationService.setLocation(lat, lon);
     console.log(` -------------------------------------> welcome to Barcelona `);
-    // locationService.resetLocation();
+    locationService.resetLocation();
 }
 
-// getDeviceInfo();
-
-
+getDeviceInfo();
