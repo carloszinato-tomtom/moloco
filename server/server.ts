@@ -27,8 +27,17 @@ app.get('/getDevice', async(req, res) => {
 
 app.post('/setLocation', async(req, res) => {
     const { deviceId, lat, lon } = req.body;
-    console.log(` -------------------------------------> lat: ${lat}`);
-    // await setDeviceLocation();
+    if (deviceId && lat && lon) {
+        await setDeviceLocation(deviceId, lat, lon);
+    }
+});
+
+app.post('/resetLocation', async(req, res) => {
+    const { deviceId } = req.body;
+    console.log(` ---------------------- on resetLocation with deviceId: ${deviceId}`);
+    if (deviceId) {
+        await resetDeviceLocation(deviceId);
+    }
 });
 
 async function getDeviceInfo() {
@@ -38,16 +47,19 @@ async function getDeviceInfo() {
         const uuid = devices[0];
         const info = await utilities.getDeviceInfo(uuid);
         await setDeviceLocation(uuid, BARCELONA[0], BARCELONA[1]);
+        console.log(` -------------------------------------> info: ${JSON.stringify(info, null, '    ')}`);
         return info;
     }
 }
 
 async function setDeviceLocation(uuid: string, lat: number, lon: number) {
     const locationService = await services.startSimulateLocationService(uuid);
-    console.log(` -------------------------------------> gonna try to set location `);
-    // locationService.setLocation(lat, lon);
+    console.log(` -------------------------------------> gonna try to set location of device ${uuid} to: ${lat} : ${lon} `);
+    locationService.setLocation(lat, lon);
     console.log(` -------------------------------------> welcome to Barcelona `);
-    locationService.resetLocation();
 }
 
-getDeviceInfo();
+async function resetDeviceLocation(uuid: string) {
+    const locationService = await services.startSimulateLocationService(uuid);
+    locationService.resetLocation();
+}
