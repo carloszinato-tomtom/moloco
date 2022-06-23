@@ -68,7 +68,7 @@ function Map() {
 
   return (
     <>
-            <button onClick={getRoute}>Route</button>
+        <button onClick={getRoute}>Route</button>
         <div
             ref={mapElement}
             style={{width: '50vw', height: '90vh'}}

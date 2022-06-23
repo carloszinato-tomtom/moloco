@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Controls = ({ findDevice, mockLocation, deviceName }) => {
+const Controls = ({ findDevice, mockLocation, resetDeviceLocation, deviceName }) => {
   return (
     <div style={{
           display: 'flex',
@@ -9,6 +9,7 @@ const Controls = ({ findDevice, mockLocation, deviceName }) => {
     >
       <button onClick={findDevice}>Get Something</button>
       <button onClick={mockLocation}>Set Location</button>
+      <button onClick={resetDeviceLocation}>Reset Location</button>
       <p>{`Selected device: ${deviceName}`}</p>
     </div>
   );
