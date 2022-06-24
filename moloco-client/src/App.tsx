@@ -10,7 +10,7 @@ import dummyData from './dummyData.json';
 const BARCELONA = [2.0701, 41.3926];
 
 function App() {
-  const [deviceInfo, setDeviceInfo] = useState(null);
+  const [deviceInfo, setDeviceInfo] = useState<null | deviceInfo>(null);
   const [mapLocation, setMapLocation] = useState(null);
 
   const findDevice = async () => {
@@ -26,7 +26,7 @@ function App() {
       lat: BARCELONA[0],
       lon: BARCELONA[1],
     });
-    setDeviceInfo(JSON.parse(response));
+    setDeviceInfo(response);
   };
 
   const resetDeviceLocation = async() => {

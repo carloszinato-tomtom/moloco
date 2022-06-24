@@ -19,7 +19,7 @@ export const setLocation = async({ deviceId, lat, lon }: locationParams): Promis
     return data;
 };
 
-export const resetLocation = async (deviceId: string) => {
+export const resetLocation = async (deviceId: string | undefined) => {
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

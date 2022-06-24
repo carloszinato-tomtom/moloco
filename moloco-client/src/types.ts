@@ -38,6 +38,6 @@ export type deviceInfo = {
     SupportedDeviceFamilies: Array<number>,
     TelephonyCapability: boolean,
     UniqueChipID: number,
-    UniqueDeviceID: string | undefined,
+    UniqueDeviceID: string,
     WiFiAddress: string
 };
